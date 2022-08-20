@@ -89,4 +89,76 @@ default:
     print("No se encuentra")
 }
 
+print("-------")
+let point3 = (9,9)
+switch point3 {
+case (let xx,let _):
+    print(xx)
+    fallthrough
+default:
+    print("No se encuentra")
+}
+print("-------")
+// Control continue, break, return, fallthrough, guard
+
+
+let animals = ["pato","perro","zorro","tigre","gato"]
+let search = "zorro"
+var animales = ""
+for animal in animals {
+    if animal == search {
+        //print("animal encontrado")
+        continue
+    }
+    animales.append(animal + ",")
+}
+print(animales)
+
+
+print("-------")
+func numberPar(number: Int) -> Bool {
+    if number % 2 == 0 {
+        return true
+    }
+    return false
+}
+
+let sw = numberPar(number: 7)
+
+// json name:pepe lastname:perez
+func numberInPar(number: Int?) -> Bool {
+    /*guard let impar = number else {
+        print("El numero es nulo \(number)")
+        return true
+    }
+    */
+    if (number ?? 0) % 2 != 0 {
+        return true
+    }
+    return false
+}
+print(numberInPar(number: 8))
+/*
+var listString:Array=["a","b","c","d"]
+let valueCurrent = listString.removeFirst()
+for value  in listString {
+    if valueCurrent == value {
+        
+    }
+    print(value)
+}
+*/
+print("----")
+var listString:Array=["a","a","c","a"]
+
+for value  in listString {
+    var valueCurrent = value
+    let fff = listString.lastIndex(of: valueCurrent)!
+    print(fff)
+    print(value)
+    if (fff+1) < listString.count && valueCurrent == listString[fff+1] {
+        print("Son iguales")
+        valueCurrent = listString[fff+1]
+    }
+}
 
