@@ -45,7 +45,7 @@ func sumNumberXY(num1: Int , num2:Int = 3) {
 print("-------")
 sumNumberXY(num1: 7, num2: 13)
 
-// variadic
+// Parameter variadic
 
 func sumNumbersPair(_ numbers: Int... ) -> Int {
     var sum = 0
@@ -69,10 +69,110 @@ func changeValue(num1: inout Int , num2: inout Int) -> (num1:Int, num2:Int) {
     return (num1,num2)
 }
 
-var num1 = 10
+var num1:Int = 10
 var num2 = 20
 print("Los valores de numero son \(num1) y \(num2)")
 var value = changeValue(num1: &num1, num2: &num2)
 print("Los valores de numero son \(value.num1) y \(value.num2)")
 
 // -------------------------------
+// Method   in vvariable
+
+func addNumber(a: Int, b:Int) -> Int {
+    return a + b
+} // (Int,Int) -> Int
+
+func subtracNumber(a: Int, b:Int) -> Int {
+    return a - b
+} // (Int,Int) -> Int
+
+func showValue() {
+    print("Algo")
+} // () -> Void
+
+let methodAddNumber:(Int,Int) -> Int = addNumber
+let methodSubNumber:(Int,Int) -> Int = subtracNumber
+let printValue: () -> Void = showValue
+print("-----------")
+print(methodAddNumber(10,2))
+print(methodSubNumber(10,2))
+printValue()
+
+
+func calc(operador:String,a:Int, b:Int) -> Int {
+    let methodAddNumber1:(Int,Int) -> Int = addNumber
+    let methodSubNumber2:(Int,Int) -> Int = subtracNumber
+    switch operador {
+    case "+":
+        return methodAddNumber1(a,b)
+    case "-":
+        return methodSubNumber2(a,b)
+    default:
+        print("Vacio")
+    }
+    return 0
+}
+
+print(calc(operador: "+", a: 80,b: 2))
+print(calc(operador: "-", a: 80,b: 2))
+
+print("---------")
+func calcWithParameter(_ operador:String,_ a:Int,_ b:Int,_ calculator:(Int,Int) -> Int) -> Int {
+
+    switch operador {
+    case "+":
+        return calculator(a,b)
+    case "-":
+        return calculator(a,b)
+    default:
+        print("Vacio")
+    }
+    return 0
+}
+
+func getFunction(_ operador:String) -> ((Int,Int) -> Int)? {
+    switch operador {
+    case "+":
+        return addNumber
+    case "-":
+        return subtracNumber
+    default:
+        print("Vacio")
+    }
+    return nil
+} //(Int,Int) -> Int)
+var functionMethod:((Int,Int) -> Int) = getFunction("+")!
+
+//functionMethod = addNumber
+//functionMethod = subtracNumber
+
+print(functionMethod(200,200))
+functionMethod = getFunction("-")!
+print(functionMethod(200,200))
+
+// Nested function
+func calculatorWithParameter(_ operador:String,_ a:Int,_ b:Int) -> Int {
+    // funciones
+    func addNumber2(a: Int, b:Int) -> Int {
+        return a + b
+    } // (Int,Int) -> Int
+    
+    func subtracNumber2(a: Int, b:Int) -> Int {
+        return a - b
+    } // (Int,Int) -> Int
+    
+    // validador
+    switch operador {
+    case "+":
+        return addNumber2(a: a, b: b)
+    case "-":
+        return subtracNumber2(a: a, b: b)
+    default:
+        print("Vacio")
+    }
+    return 0
+}
+print("---222---")
+print(calculatorWithParameter("/", 10, 90))
+print(calculatorWithParameter("+", 10, 90))
+
